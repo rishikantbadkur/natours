@@ -28,9 +28,7 @@ async function connect() {
 
 connect();
 
-const port = 8000;
-
-const server = app.listen(port, () => {
+const server = app.listen(process.env.PORT || 8000, () => {
   console.log('server listening on port 8000....');
 });
 
