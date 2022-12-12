@@ -29,7 +29,7 @@ async function connect() {
 connect();
 
 const server = app.listen(process.env.PORT || 8000, () => {
-  console.log('server listening on port 8000....');
+  console.log(`server listening on port ${process.env.PORT}....`);
 });
 
 process.on('unhandledRejection', (err) => {
