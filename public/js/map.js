@@ -23,19 +23,30 @@ export const displayMap = function (locations) {
   locations.forEach((loc) => {
     points.push([loc.coordinates[1], loc.coordinates[0]]);
 
-    const pop = L.marker([loc.coordinates[1], loc.coordinates[0]], {
+    L.marker([loc.coordinates[1], loc.coordinates[0]], {
       icon: icon,
     })
       .addTo(map)
-      .bindPopup(`<p>Day ${loc.day}: ${loc.description}</p>`, {
-        autoClose: false,
+      .bindPopup(`<p>Day ${loc.day}: ${loc.description}</p>`);
+
+    var popupLocation = new L.LatLng(loc.coordinates[1], loc.coordinates[0]);
+
+    var popupContent = `<p>Day ${loc.day}: ${loc.description}</p>`,
+      popup1 = new L.Popup({
+        offset: [0, -25],
       });
-    pop.openPopup();
+
+    popup1.setLatLng(popupLocation);
+    popup1.setContent(popupContent);
+
+    map.addLayer(popup1);
   });
 
   const bounds = L.latLngBounds(points);
 
-  map.fitBounds(bounds);
+  map.fitBounds(bounds, {
+    padding: [80, 80],
+  });
 
   map.scrollWheelZoom.disable();
 };
